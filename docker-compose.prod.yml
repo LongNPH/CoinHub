@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${PROD_URL}
+  nginx:
+    ports:
+      - "80:80"
+      - "443:443"
+    # TODO: mount SSL certs từ certbot
