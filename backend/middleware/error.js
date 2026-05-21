@@ -1,1 +1,6 @@
-// Global error handler Express, bắt mọi lỗi, trả JSON thống nhất
+export function errorHandler(err, req, res, next) {
+  console.error(err.message)
+  res.status(err.status || 500).json({
+    error: err.message || 'Lỗi server'
+  })
+}

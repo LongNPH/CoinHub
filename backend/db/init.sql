@@ -1,16 +1,19 @@
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE IF NOT EXISTS users (
-  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+  username     VARCHAR(50)  UNIQUE NOT NULL,
   email        VARCHAR(255) UNIQUE NOT NULL,
-  name         VARCHAR(100) NOT NULL,
+  phone        VARCHAR(20),
   password     VARCHAR(255) NOT NULL,
-  role         VARCHAR(20)  DEFAULT 'user',
-  usd_balance  NUMERIC(20,2) DEFAULT 10000.00,
+  role         VARCHAR(20)  NOT NULL DEFAULT 'user',
+  usd_balance  NUMERIC(20,2) NOT NULL DEFAULT 0.00,
   otp_code     VARCHAR(6),
   otp_expires  TIMESTAMPTZ,
-  created_at   TIMESTAMPTZ DEFAULT NOW()
+  created_at   TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS idx_users_username ON users (username);
 
 CREATE TABLE IF NOT EXISTS coins (
   id       SERIAL PRIMARY KEY,

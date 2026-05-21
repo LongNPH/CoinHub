@@ -2,10 +2,9 @@
 
 ## Thành Viên Nhóm
 
-| STT | Họ Tên | MSSV | Nhiệm vụ |
-|-----|--------|------|---------|
-| 1 | Nguyễn Phan Hoàng Long | 24521006 | Code |
-| 2 | Claude.ai | | Dựng project tree theo yêu cầu |
+| STT | Họ Tên | MSSV |
+|-----|--------|------|
+| 1 | Nguyễn Phan Hoàng Long | 24521006 |
 
 ## Mô Tả Ngắn
 
@@ -28,7 +27,7 @@ CoinHub là nền tảng giao dịch giả định tiền điện tử cho phép
 | **Backend** | Node.js 20, Express, Socket.IO, pg, ioredis, bcryptjs, jwt |
 | **Frontend** | React 18, Vite, TailwindCSS, Chart.js, Socket.IO Client |
 | **Database** | PostgreSQL 16 (Docker), Redis 7 (Docker) |
-| **Email** | Nodemailer (Mailpit dev, Gmail SMTP prod) |
+| **Email** | Nodemailer SMTP fallback for Mailpit local, Brevo API for cloud email |
 | **Proxy** | Nginx |
 | **Container** | Docker + Docker Compose |
 
@@ -57,7 +56,7 @@ docker exec -it coinhub-backend node seed.js
 ## Cấu Trúc Thư Mục
 
 ```
-cryptotrack/
+coinhub/
 ├── backend/
 │   ├── db/
 │   │   ├── index.js                    # Khởi tạo pg Pool, export hàm query(sql, params) dùng chung toàn backend
@@ -102,7 +101,7 @@ cryptotrack/
 │   │   │   ├── useLatency.js           # Đo latency mỗi WS message, emit latency_report lên server, trả stats
 │   │   │   └── useWatchlist.js         # Fetch watchlist khi mount, expose watchlist/addCoin/removeCoin
 │   │   ├── pages/
-│   │   │   ├── Home.jsx                # Trang chủ full viewport không scroll: Navbar, TickerBar, hero chart, 3 cột
+│   │   │   ├── Home.jsx                # Trang chủ: Navbar, hero chart, 3 cột
 │   │   │   ├── Trade.jsx               # Trang giao dịch 2 cột: danh sách coin trái, chi tiết phải, nút mua/bán nổi
 │   │   │   ├── History.jsx             # Lịch sử giao dịch: bảng filter realtime, phân trang, 4 KPI card
 │   │   │   ├── News.jsx                # Tin tức CoinGecko: danh sách dọc, phân trang 5 bài/trang, 5 trang
@@ -114,7 +113,6 @@ cryptotrack/
 │   │   │   └── ResetPassword.jsx       # Trang đặt mật khẩu mới bước 3: nhập password mới sau khi OTP xác minh
 │   │   ├── components/
 │   │   │   ├── Navbar.jsx              # Logo, nav links, wallet chip đổi đơn vị, user chip, hiện admin link nếu đủ quyền
-│   │   │   ├── TickerBar.jsx           # Dải giá chạy ngang bên dưới Navbar, cập nhật realtime từ usePrices
 │   │   │   ├── AllCoinChart.jsx        # Chart.js multi-line 24h, mỗi coin một màu, nền trong suốt, tooltip hover
 │   │   │   ├── OrderBook.jsx           # Bảng sổ lệnh 3 cột bid/giá/ask, thanh màu nền, cập nhật realtime WS
 │   │   │   ├── RecentTrades.jsx        # Bảng giao dịch gần đây thời gian/giá xanh-đỏ/khối lượng, cập nhật WS

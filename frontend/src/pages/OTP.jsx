@@ -1,1 +1,5 @@
-// Trang nhập OTP: 6 ô input, dùng OTPInput component, submit verify
+export default function OTP() {
+  return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000' }}>
+    <p style={{ color: '#fff' }}>Coming soon...</p>
+  </div>
+}

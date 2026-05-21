@@ -1,1 +1,6 @@
-// Kiểm tra req.user.role === 'admin', trả 403 nếu không phải admin
+export function requireAdmin(req, res, next) {
+  if (req.user?.role !== 'admin') {
+    return res.status(403).json({ error: 'Không có quyền truy cập' })
+  }
+  next()
+}

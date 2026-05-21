@@ -1,1 +1,5 @@
-// Trang đặt mật khẩu mới bước 3: nhập password mới sau khi OTP xác minh
+export default function ResetPassword() {
+  return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000' }}>
+    <p style={{ color: '#fff' }}>Coming soon...</p>
+  </div>
+}
