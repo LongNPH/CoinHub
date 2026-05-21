@@ -7,10 +7,30 @@ export function useCoins() {
   const [error,   setError]   = useState(null)
 
   useEffect(() => {
-    get('/api/coins')
-      .then(data  => setCoins(data))
-      .catch(err  => setError(err.message))
-      .finally(() => setLoading(false))
+    let retryTimer
+    let cancelled = false
+
+    async function fetchCoins() {
+      try {
+        const data = await get('/api/coins')
+        if (cancelled) return
+        setCoins(data)
+        setError(null)
+        setLoading(false)
+      } catch (err) {
+        if (cancelled) return
+        setError(err.message)
+        setLoading(false)
+        retryTimer = setTimeout(fetchCoins, 5000)
+      }
+    }
+
+    fetchCoins()
+
+    return () => {
+      cancelled = true
+      clearTimeout(retryTimer)
+    }
   }, [])
 
   return { coins, loading, error }

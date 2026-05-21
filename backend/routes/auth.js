@@ -11,7 +11,8 @@ const router = Router()
 
 const COOKIE_OPTS = {
   httpOnly: true,
-  sameSite: 'lax',
+  // Render serves the frontend and API from separate origins in production.
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   secure:   process.env.NODE_ENV === 'production',
   maxAge:   7 * 24 * 60 * 60 * 1000, 
 }
